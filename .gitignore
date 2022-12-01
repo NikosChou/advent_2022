@@ -1,0 +1,18 @@
+HELP.md
+target
+!**/src/main/**
+!**/src/test/**
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+.bsp
+/project/target/
