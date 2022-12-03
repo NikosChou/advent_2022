@@ -1,7 +1,7 @@
-package de.choustoulakis.advent2022.day1
+package de.choustoulakis.advent2022.days
 
 import de.choustoulakis.advent2022.MagicalEnergySpec
-import de.choustoulakis.advent2022.day1.Day1.Elves
+import de.choustoulakis.advent2022.days.Day1.Elves
 import org.scalatest.*
 
 import scala.io.Source

@@ -7,5 +7,5 @@ import scala.io.Source
 
 class MagicalEnergySpec extends AnyWordSpec with Matchers {
   self: Puzzle[_, _] =>
-  lazy val resource: String = Source.fromResource(s"day${self.day}/input.txt").mkString
+  lazy val resource: String = Source.fromResource(s"days/day${self.day}").mkString
 }

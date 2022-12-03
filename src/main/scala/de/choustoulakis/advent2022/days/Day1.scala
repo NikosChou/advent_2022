@@ -1,7 +1,7 @@
-package de.choustoulakis.advent2022.day1
+package de.choustoulakis.advent2022.days
 
 import de.choustoulakis.advent2022.Puzzle
-import de.choustoulakis.advent2022.day1.Day1.{Elf, Elves, Output}
+import de.choustoulakis.advent2022.days.Day1.{Elf, Elves, Output}
 
 
 trait Day1 extends Puzzle[Elves, Output] :
