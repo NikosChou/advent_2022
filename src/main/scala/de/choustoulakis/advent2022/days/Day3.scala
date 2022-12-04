@@ -12,13 +12,13 @@ trait Day3 extends Puzzle[String, (Int, Int)] :
       case i => i - 38
     }
 
-    val part1 = in.split("\\n")
+    val part1 = in.split(Puzzle.NEW_LINE)
       .map(line => line.splitAt(line.length / 2))
       .map(lines => lines(0).filter(char => lines(1).contains(char)).head)
       .map(charNumberToInt)
       .sum
 
-    val part2 = in.split("\\n")
+    val part2 = in.split(Puzzle.NEW_LINE)
       .grouped(3)
       .map(lines => lines.head.filter(c => lines(1).contains(c.toString) && lines(2).contains(c.toString)).head)
       .map(charNumberToInt).sum

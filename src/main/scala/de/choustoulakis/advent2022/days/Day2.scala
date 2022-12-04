@@ -8,7 +8,7 @@ trait Day2 extends Puzzle[String, (Int, Int)] :
   val day = 2
 
   override def solve(in: String): (Int, Int) =
-    def calculateScore(strategy: Strategy): Int = in.split("\\n")
+    def calculateScore(strategy: Strategy): Int = in.split(Puzzle.NEW_LINE)
       .map(ar => (Shape(ar.charAt(0)), ar.charAt(2)))
       .map((opponent, me) => Round(opponent, strategy(me, opponent)))
       .map(_.score)

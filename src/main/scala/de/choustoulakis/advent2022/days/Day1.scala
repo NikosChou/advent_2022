@@ -25,7 +25,7 @@ object Day1:
 
   given Conversion[String, Elves] with
     def apply(in: String): Elves = in.split("\\n\\n")
-      .map(_.split("\\n").map(_.toInt).toList)
+      .map(_.split(Puzzle.NEW_LINE).map(_.toInt).toList)
       .map(Elf.apply)
       .toList
 
