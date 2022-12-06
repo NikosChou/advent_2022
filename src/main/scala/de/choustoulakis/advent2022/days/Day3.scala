@@ -1,9 +1,10 @@
 package de.choustoulakis.advent2022.days
 
 import de.choustoulakis.advent2022.Puzzle
+import de.choustoulakis.advent2022.Puzzle.IntOutput
 
-trait Day3 extends Puzzle[String, (Int, Int)] :
-  override def solve(in: String): (Int, Int) =
+trait Day3 extends Puzzle[IntOutput] :
+  override def solve(in: String): IntOutput =
 
     val charNumberToInt: Char => Int = _.toInt match {
       case i if i >= 97 => i - 96
@@ -21,5 +22,5 @@ trait Day3 extends Puzzle[String, (Int, Int)] :
       .map(lines => lines.head.filter(c => lines(1).contains(c.toString) && lines(2).contains(c.toString)).head)
       .map(charNumberToInt).sum
 
-    (part1, part2)
+    new IntOutput(part1, part2)
 

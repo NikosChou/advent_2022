@@ -1,10 +1,11 @@
 package de.choustoulakis.advent2022.days
 
 import de.choustoulakis.advent2022.Puzzle
+import de.choustoulakis.advent2022.Puzzle.IntOutput
 import de.choustoulakis.advent2022.days.Day4.{PairSection, Section}
 
-trait Day4 extends Puzzle[String, (Int, Int)] :
-  override def solve(in: String): (Int, Int) =
+trait Day4 extends Puzzle[IntOutput] :
+  override def solve(in: String): IntOutput =
     val part1 = in.split(Puzzle.NEW_LINE)
       .map(PairSection.apply)
       .count(_.contains)
@@ -13,7 +14,7 @@ trait Day4 extends Puzzle[String, (Int, Int)] :
       .map(PairSection.apply)
       .count(_.overlaps)
 
-    (part1, part2)
+    new IntOutput(part1, part2)
 
 object Day4:
   case class Section(l: Int, r: Int):

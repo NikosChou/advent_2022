@@ -1,12 +1,13 @@
 package de.choustoulakis.advent2022.days
 
 import de.choustoulakis.advent2022.Puzzle
+import de.choustoulakis.advent2022.Puzzle.StringOutput
 import de.choustoulakis.advent2022.days.Day5.{Command, mapCrates}
 
 import scala.collection.mutable
 
-trait Day5 extends Puzzle[String, (String, String)] :
-  override def solve(in: String): (String, String) =
+trait Day5 extends Puzzle[StringOutput] :
+  override def solve(in: String): StringOutput =
     val (crates_in, commands_in) = in.splitAt(in.indexOf("\n\n"))
     val crates = mapCrates(crates_in)
     val commands = commands_in.split(Puzzle.NEW_LINE).filter(_.nonEmpty).map(Command.apply)
@@ -29,7 +30,7 @@ trait Day5 extends Puzzle[String, (String, String)] :
       }
     }
     val part2 = part2Crates.map(_.stack.pop()).map(_.char).mkString
-    (part1, part2)
+    new StringOutput(part1, part2)
 
 object Day5:
 

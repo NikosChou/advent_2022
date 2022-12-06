@@ -1,18 +1,19 @@
 package de.choustoulakis.advent2022.days
 
 import de.choustoulakis.advent2022.Puzzle
+import de.choustoulakis.advent2022.Puzzle.IntOutput
 import de.choustoulakis.advent2022.days.Day2.*
 import de.choustoulakis.advent2022.days.Day2.Strategies.*
 
-trait Day2 extends Puzzle[String, (Int, Int)] :
-  override def solve(in: String): (Int, Int) =
+trait Day2 extends Puzzle[IntOutput] :
+  override def solve(in: String): IntOutput =
     def calculateScore(strategy: Strategy): Int = in.split(Puzzle.NEW_LINE)
       .map(ar => (Shape(ar.charAt(0)), ar.charAt(2)))
       .map((opponent, me) => Round(opponent, strategy(me, opponent)))
       .map(_.score)
       .sum
 
-    (calculateScore(new SimpleStrategy), calculateScore(new Part2Strategy))
+    new IntOutput(calculateScore(new SimpleStrategy), calculateScore(new Part2Strategy))
 
 
 object Day2:
