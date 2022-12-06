@@ -3,8 +3,6 @@ package de.choustoulakis.advent2022.days
 import de.choustoulakis.advent2022.Puzzle
 
 trait Day3 extends Puzzle[String, (Int, Int)] :
-  val day = 3
-
   override def solve(in: String): (Int, Int) =
 
     val charNumberToInt: Char => Int = _.toInt match {

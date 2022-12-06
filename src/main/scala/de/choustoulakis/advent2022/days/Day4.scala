@@ -4,8 +4,6 @@ import de.choustoulakis.advent2022.Puzzle
 import de.choustoulakis.advent2022.days.Day4.{PairSection, Section}
 
 trait Day4 extends Puzzle[String, (Int, Int)] :
-  val day = 4
-
   override def solve(in: String): (Int, Int) =
     val part1 = in.split(Puzzle.NEW_LINE)
       .map(PairSection.apply)
@@ -41,7 +39,6 @@ object Day4:
         if le == re
       } yield true).exists(identity)
     }
-
 
   object PairSection:
     def apply(line: String): PairSection =

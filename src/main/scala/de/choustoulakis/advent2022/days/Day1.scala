@@ -5,8 +5,6 @@ import de.choustoulakis.advent2022.days.Day1.{Elf, Elves, Output}
 
 
 trait Day1 extends Puzzle[Elves, Output] :
-  val day = 1
-
   override def solve(elves: Elves): Output =
     val elfPerCalories: Ordering[Elf] = (l, r) => l.maxCalories - r.maxCalories
     val part1 = elves.max(elfPerCalories).maxCalories
