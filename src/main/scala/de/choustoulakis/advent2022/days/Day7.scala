@@ -13,11 +13,11 @@ trait Day7 extends Puzzle[IntOutput] :
   override def solve(in: String): IntOutput =
     val root = findRootFrom(createTreeStructure(in))
 
-    def accumulatePaths(node: Node): mutable.ArrayBuffer[Node] = node match
-      case _: File => mutable.ArrayBuffer()
-      case _ => node.children.foldLeft(mutable.ArrayBuffer[Node]()) { (acc, n) =>
-        acc.:++(accumulatePaths(n))
-      }.:+(node)
+    def accumulatePaths(node: File): mutable.ArrayBuffer[File] = node match
+      case file if file.isDirectory => node.children
+        .foldLeft(mutable.ArrayBuffer[File]()) { (acc, n) => acc.:++(accumulatePaths(n)) }
+        .:+(node)
+      case _ => mutable.ArrayBuffer()
 
 
     val allDirectories = accumulatePaths(root)
@@ -35,45 +35,33 @@ trait Day7 extends Puzzle[IntOutput] :
     new IntOutput(part1, part2._1.size)
 
   @tailrec
-  private def findRootFrom(node: Node): Path = if (node.parent != null) findRootFrom(node.parent) else node.asInstanceOf[Path]
+  private def findRootFrom(node: File): File = if (node.parent != null) findRootFrom(node.parent) else node
 
-  private def createTreeStructure(in: String): Node =
+  private def createTreeStructure(in: String): File =
     in.split(Puzzle.NEW_LINE)
-      .foldLeft[Path](Path("/", mutable.ArrayBuffer(), null)) { (workingDirectory, termInOut) =>
+      .foldLeft(File("/", 0, mutable.ArrayBuffer(), null, true)) { (workingDirectory, termInOut) =>
         termInOut match
           case s"$$ $command" => command match
             case s"cd .." => workingDirectory.parent
             case s"cd /" => findRootFrom(workingDirectory)
             case s"cd $dir" => workingDirectory.children.flatMap {
-              case path: Path if path.name == dir => Some(path)
+              case path if path.name == dir => Some(path)
               case _ => None
             }.head
             case "ls" => workingDirectory
           case output =>
-            workingDirectory.children.+=(Node.apply(output, workingDirectory))
+            workingDirectory.children.+=(File(output, workingDirectory))
             workingDirectory
       }
 
 object Day7:
-  abstract class Node:
-    def size: Int
 
-    def name: String
+  case class File(name: String, fileSize: Int, children: mutable.ArrayBuffer[File], parent: File, isDirectory: Boolean):
+    def size: Int = if (children.isEmpty) fileSize else children.map(_.size).sum
 
-    def children: mutable.ArrayBuffer[Node]
+    override def toString: String = s"name: $name, size: $size, children: $children, isDir: $isDirectory"
 
-    def parent: Path
-
-
-  object Node:
-    def apply(output: String, parent: Path): Node = output match
-      case s"$size $name" if Try(size.toInt).isSuccess => File(name, size.toInt, parent)
-      case s"dir $dir" => Path(dir, mutable.ArrayBuffer(), parent)
-
-  case class Path(name: String, children: mutable.ArrayBuffer[Node], parent: Path) extends Node :
-    override def size: Int = children.map(_.size).sum
-
-  case class File(name: String, fileSize: Int, parent: Path) extends Node :
-    override def children: mutable.ArrayBuffer[Node] = mutable.ArrayBuffer()
-
-    override def size: Int = fileSize
+  object File:
+    def apply(output: String, parent: File): File = output match
+      case s"$size $name" if Try(size.toInt).isSuccess => File(name, size.toInt, mutable.ArrayBuffer(), parent, false)
+      case s"dir $dir" => File(dir, 0, mutable.ArrayBuffer(), parent, true)
