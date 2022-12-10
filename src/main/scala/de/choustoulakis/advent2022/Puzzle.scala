@@ -18,8 +18,8 @@ object Puzzle:
 
     def _2: A = part2
 
-  class StringOutput(out1: String, out2: String) extends Output[String](out1, out2)
+  class StringOutput(out1: String = "", out2: String = "") extends Output[String](out1, out2)
 
-  class IntOutput(out1: Int, out2: Int) extends Output[Int](out1, out2)
+  class IntOutput(out1: Int = 0, out2: Int = 0) extends Output[Int](out1, out2)
 
   val NEW_LINE = "\\n"
