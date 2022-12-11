@@ -21,5 +21,6 @@ object Puzzle:
   class StringOutput(out1: String = "", out2: String = "") extends Output[String](out1, out2)
 
   class IntOutput(out1: Int = 0, out2: Int = 0) extends Output[Int](out1, out2)
+  class LongOutput(out1: Long = 0, out2: Long = 0) extends Output[Long](out1, out2)
 
   val NEW_LINE = "\\n"
