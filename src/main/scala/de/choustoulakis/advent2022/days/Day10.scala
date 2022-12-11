@@ -32,7 +32,6 @@ trait Day10 extends Puzzle[StringOutput] :
     }
 
     val image = result.image.grouped(40).map(_.mkString).mkString("\n")
-    println(image)
     StringOutput(String.valueOf(result.sum), image)
 
 object Day10:

@@ -13,7 +13,6 @@ trait Day11 extends Puzzle[LongOutput] :
   override def solve(in: String): LongOutput =
 
     val businessLevels = playFor(in, 20)
-    println(businessLevels)
     val part1 = businessLevels.max * businessLevels.sorted.takeRight(2).head
 
     val businessLevels2 = playFor(in, 10000, true)
@@ -30,8 +29,7 @@ trait Day11 extends Puzzle[LongOutput] :
     val monkeys = in.split(Puzzle.NEW_LINE * 2)
       .map(toMonkey).toList
     (1 to rounds).foreach { _ =>
-      monkeys.indices.foreach { i =>
-        val m = monkeys(i)
+      monkeys.foreach { m =>
         m.items.indices.foreach { _ =>
           m.num = m.num + 1
           val head = reliefFn(m.op(m.items.dequeue()))
