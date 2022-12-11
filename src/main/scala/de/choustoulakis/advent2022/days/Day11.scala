@@ -17,7 +17,6 @@ trait Day11 extends Puzzle[LongOutput] :
     val part1 = businessLevels.max * businessLevels.sorted.takeRight(2).head
 
     val businessLevels2 = playFor(in, 10000, true)
-    println(businessLevels2)
     val part2 = businessLevels2.max * businessLevels2.sorted.takeRight(2).head
 
 
@@ -35,9 +34,9 @@ trait Day11 extends Puzzle[LongOutput] :
         val m = monkeys(i)
         m.items.indices.foreach { _ =>
           m.num = m.num + 1
-          val head = reliefFn(m.items.dequeue())
-          val toM = m.throwFn(m.op(head))
-          monkeys(toM).items.enqueue(m.op(head))
+          val head = reliefFn(m.op(m.items.dequeue()))
+          val toM = m.throwFn(head)
+          monkeys(toM).items.enqueue(head)
         }
       }
     }
